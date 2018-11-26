@@ -1,0 +1,80 @@
+---
+- hosts: all
+  tasks:
+    - name: Stop Docker
+      become: true
+      ignore_errors: yes
+      systemd:
+        name: docker
+        state: stopped
+
+    - name: Uninstall Docker
+      become: true
+      yum:
+        state: removed
+        name:
+          - docker
+          - docker-client
+          - docker-client-latest
+          - docker-common
+          - docker-latest
+          - docker-latest-logrotate
+          - docker-logrotate
+          - docker-selinux
+          - docker-engine-selinux
+          - docker-engine
+
+    - name: Remove /var/lib/docker
+      become: true
+      file:
+        state: absent
+        path: /var/lib/docker
+
+    - name: Install Docker CE pre-requisites
+      become: true
+      yum:
+        state: latest
+        name:
+          - yum-utils
+          - device-mapper-persistent-data
+          - lvm2
+      
+    - name: Add Docker CE repository
+      get_url:
+        url: https://download.docker.com/linux/centos/docker-ce.repo
+        dest: /etc/yum.repos.d/docker-ce.repo
+      become: true
+
+    - name: Install Docker CE
+      yum:
+        name: docker-ce
+        state: latest
+      become: true
+
+    - name: Enable & start Docker daemon
+      become: true
+      systemd:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Stop Docker Daemon
+      become: true
+      systemd:
+        name: docker
+        state: stopped
+
+    - name: Set storage-driver to overlay2
+      become: true
+      copy:
+        dest: /etc/docker/daemon.json
+        content: |
+          {
+            "storage-driver": "overlay2"
+          }
+
+    - name: Start Docker Daemon
+      become: true
+      systemd:
+        name: docker
+        state: started

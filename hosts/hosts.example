@@ -1,0 +1,15 @@
+# Some example hosts for a 3-tier application
+# seen from the perspective of a local Ansible control machine
+
+[lbs]
+lb01
+
+[web]
+app01
+app02
+
+[database]
+db01
+
+[control]
+control ansible_connection=local

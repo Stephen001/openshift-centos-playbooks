@@ -1,0 +1,6 @@
+---
+- name: Run prep-server.yml
+  import_playbook: prep-server.yml
+
+- name: Run docker.yml
+  import_playbook: docker.yml
