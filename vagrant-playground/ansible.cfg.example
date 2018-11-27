@@ -1,5 +1,5 @@
 [defaults]
-inventory = ./hosts/hosts.local
+inventory = ../hosts/hosts.local
 
 # Turn off strict host key checking, and blank out the known_hosts file
 [ssh_connection]
