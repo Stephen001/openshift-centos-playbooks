@@ -9,7 +9,10 @@ There are 3 playbooks of note:
 a service, and ensures that `SELINUX=enforcing` in `/etc/selinux/config`, complying with software needed prior to installing 
 OpenShift.
 - `playbooks/docker.yml` will replace the default CentOS 7 Docker with Docker-CE, and use `overlay2` as a storage-driver for it.
-- `playbooks/lock-down-sshd.yml` will adjust the SSH setup to comply better with [securing CentOS SSH](https://wiki.centos.org/HowTos/Network/SecuringSSH)
+- `playbooks/lock-down-sshd.yml` will adjust the SSH setup to comply better with [securing CentOS SSH](https://wiki.centos.org/HowTos/Network/SecuringSSH). 
+
+Note: Be careful with `playbooks/lock-down-sshd.yml`! It will change the SSH port, prevent logins as root and other things. 
+Make sure you understand what it does, and that you don't accidentally lock yourself out of the system. 
 
 ### To test with Vagrant
 1. Install Vagrant and VirtualBox
