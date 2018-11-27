@@ -16,9 +16,8 @@ Make sure you understand what it does, and that you don't accidentally lock your
 
 ### To test with Vagrant
 1. Install Vagrant and VirtualBox
-2. In the vagrant-playground folder:
-
-- Copy `hosts/hosts.example` to a new file in the `hosts` folder and adjust it as needed
+2. Copy `hosts/hosts.example` to a new file in the same folder and adjust it as needed
+3. In the vagrant-playground folder:
 - Copy `ansible.cfg.example` to `ansible.cfg` and adjust it as needed, e.g., to point to your new hosts file.
 - Run `vagrant up` to create the VM. It will automatically be provisioned with `playbooks/prep-server.yml`
 - If you want to replace Docker with Docker CE, run `./local-play.sh ../playbooks/docker.yml`
