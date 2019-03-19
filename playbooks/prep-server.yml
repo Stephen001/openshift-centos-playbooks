@@ -40,3 +40,19 @@
         path: /etc/selinux/config
         regexp: '^SELINUX='
         line: 'SELINUX=enforcing'
+
+    - name: Increase soft & hard file limits to 64k
+      become: true
+      lineinfile:
+        path: /etc/sysctl.conf
+        line: 'fs.file-max = 64000'
+
+    - name: Increase nofile limit to 64k
+      become: true
+      lineinfile:
+        path: /etc/security/limits/conf
+        line: '* - nofile 64000'
+
+    - name: Restart Sysctl
+      become: true
+      shell: sysctl -p
