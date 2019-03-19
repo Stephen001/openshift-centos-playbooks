@@ -16,7 +16,9 @@
 
     - name: Install pip
       become: true
-      yum: name=python-pip
+      yum:
+        name: python-pip
+        state: installed
 
     - name: install OpenShift pip dependencies
       become: true
@@ -46,6 +48,7 @@
       lineinfile:
         path: /etc/sysctl.conf
         line: 'fs.file-max = 64000'
+
 
     - name: Increase nofile limit to 64k
       become: true
