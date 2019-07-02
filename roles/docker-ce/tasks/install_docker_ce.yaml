@@ -1,0 +1,35 @@
+---
+- name: Stop Docker
+  systemd:
+    name: docker
+    state: stopped
+
+- name: Uninstall Docker
+  yum:
+    state: removed
+    name:
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-selinux
+      - docker-engine-selinux
+      - docker-engine
+      
+- name: Add Docker CE repository
+  get_url:
+    url: https://download.docker.com/linux/centos/docker-ce.repo
+    dest: /etc/yum.repos.d/docker-ce.repo
+
+- name: Install Docker CE
+  yum:
+    name: docker-ce
+    state: latest
+
+- name: Start Docker Daemon
+  systemd:
+    name: docker
+    state: started

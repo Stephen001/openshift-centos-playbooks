@@ -1,10 +1,6 @@
 ---
 - hosts: all
   tasks:
-    - name: Update yum
-      become: true
-      yum: state=latest name='*'
-
     - name: Install base yum packages
       become: true
       yum:
@@ -49,13 +45,18 @@
         path: /etc/sysctl.conf
         line: 'fs.file-max = 64000'
 
-
-    - name: Increase nofile limit to 64k
-      become: true
-      lineinfile:
-        path: /etc/security/limits/conf
-        line: '* - nofile 64000'
-
     - name: Restart Sysctl
       become: true
       shell: sysctl -p
+
+    - name: Install Docker
+      yum:
+        name: docker
+        state: latest
+      become: true
+
+    - name: Start Docker Daemon
+      become: true
+      systemd:
+        name: docker
+        state: started
