@@ -1,0 +1,3 @@
+---
+# Defaults for docker-ce
+ openshift_use_docker_ce: False

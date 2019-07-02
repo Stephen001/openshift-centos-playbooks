@@ -1,0 +1,3 @@
+---
+# Defaults for secure-sshd
+ sshd_port: 2222

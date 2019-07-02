@@ -4,6 +4,7 @@
 [all:vars]
 ansible_become=True
 openshift_use_docker_ce=True
+openshift_increase_file_limits=True
 
 [lbs]
 lb01

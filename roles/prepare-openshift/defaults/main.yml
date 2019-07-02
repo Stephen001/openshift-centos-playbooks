@@ -1,0 +1,3 @@
+---
+# Defaults for prepare-openshift
+ openshift_increase_file_limits: False
