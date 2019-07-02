@@ -2,3 +2,7 @@
 - include_tasks: install_docker_ce.yaml
   when:
     - openshift_use_docker_ce | bool
+
+- include_tasks: install_docker.yaml
+  when:
+    - not openshift_use_docker_ce | bool

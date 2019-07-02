@@ -1,0 +1,13 @@
+---
+- name: Remove soft & hard file limits
+  file:
+    path: /etc/sysctl.d/21-increased-limits.conf
+    state: absent
+
+- name: Remove nofile limit increase
+  file:
+    path: /etc/security/limits.d/21-increased-nofile.conf
+    state: absent
+
+- name: Restart Sysctl
+  shell: sysctl -p

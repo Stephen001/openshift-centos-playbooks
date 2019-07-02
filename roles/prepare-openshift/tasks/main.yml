@@ -1,0 +1,52 @@
+---
+- name: Install base yum packages
+  yum:
+    name:
+      - NetworkManager
+      - git
+      - vim
+      - epel-release
+    state: installed
+
+- name: Install pip
+  yum:
+    name: python-pip
+    state: installed
+
+- name: Install OpenShift pip dependencies
+  pip:
+    name:
+      - cryptography
+      - pyOpenSSL
+      - lxml
+      - passlib
+
+- name: Ensure NetworkManager is enabled & started
+  systemd:
+    name: NetworkManager
+    state: started
+    enabled: yes
+
+- name: Ensure SELINUX=enforcing
+  lineinfile:
+    path: /etc/selinux/config
+    regexp: '^SELINUX='
+    line: 'SELINUX=enforcing'
+
+- include_tasks: increase_limits.yaml
+  when:
+    - openshift_increase_file_limits | bool
+
+- include_tasks: decrease_limits.yaml
+  when:
+    - not openshift_increase_file_limits | bool
+
+- name: Install Docker
+  yum:
+    name: docker
+    state: latest
+
+- name: Start Docker Daemon
+  systemd:
+    name: docker
+    state: started

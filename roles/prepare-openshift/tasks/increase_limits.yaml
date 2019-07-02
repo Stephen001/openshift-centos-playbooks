@@ -1,0 +1,13 @@
+---
+- name: Increase soft & hard file limits to 64k
+  copy:
+    src: 21-increased-limits.conf
+    dest: /etc/sysctl.d/21-increased-limits.conf
+
+- name: Increase nofile limit to 64k
+  copy:
+    src: 21-increased-nofile.conf
+    dest: /etc/security/limits.d/21-increased-nofile.conf
+
+- name: Restart Sysctl
+  shell: sysctl -p
