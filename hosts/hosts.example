@@ -1,6 +1,10 @@
 # Some example hosts for a 3-tier application
 # seen from the perspective of a local Ansible control machine
 
+[all:vars]
+ansible_become=True
+openshift_use_docker_ce=True
+
 [lbs]
 lb01
 
