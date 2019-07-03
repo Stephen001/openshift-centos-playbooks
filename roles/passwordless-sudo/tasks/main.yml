@@ -1,0 +1,5 @@
+---
+- name: Adding passwordless sudo access
+  template:
+    src: sudo.j2
+    dest: "/etc/sudoers.d/{{ item.name }}"
