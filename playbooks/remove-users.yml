@@ -1,0 +1,7 @@
+---
+- hosts: all
+  tasks:
+    - name: Remove users
+      include_role:
+        name: remove-user
+      with_items: "{{ users }}"

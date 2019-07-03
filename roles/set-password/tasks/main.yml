@@ -1,0 +1,5 @@
+---
+- name: Set password for user
+  user:
+    name: "{{ item.name }}"
+    password: "{{ item.password | password_hash('sha512') }}"
