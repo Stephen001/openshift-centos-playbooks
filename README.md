@@ -12,11 +12,13 @@ OpenShift.
 - [lock-down-sshd.yml](playbooks/lock-down-sshd.yml) will adjust the SSH setup to comply better with [securing CentOS SSH](https://wiki.centos.org/HowTos/Network/SecuringSSH). 
 - [add-users.yml](playbooks/add-users.yml) will create user accounts on all hosts in the inventory, and install an SSH authorized key.
 - [remove-users.yml](playbooks/remove-users.yml) will remove user accounts on all hosts in the inventory.
+- [set-passwords.yml](playbooks/rset-passwords.yml) will set passwords on user accounts on all hosts in the inventory.
 
 An example execution of the user playbooks is:
 
 - `ansible-playbook playbooks/add-users.yml --extra-vars=users='[{"name":"bob","group":"cluster_admin","is_admin":true,"key":"/home/myuser/bob.pub"}]'`
 - `ansible-playbook playbooks/remove-users.yml --extra-vars=users='[{"name":"bob"}]'`
+- `ansible-playbook playbooks/set-passwords.yml --extra-vars=users='[{"name":"bob","password":"secretSauce1"}]'`
 
 Note: Be careful with `playbooks/lock-down-sshd.yml`! It will change the SSH port, prevent logins as root and other things. 
 Make sure you understand what it does, and that you don't accidentally lock yourself out of the system. 
