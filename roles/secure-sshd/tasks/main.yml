@@ -31,14 +31,26 @@
     regexp: '^Port \d+'
     line: 'Port {{ sshd_port }}'
 
-- name: Open new SSH port
-  firewalld:
-    port: '{{ sshd_port }}/tcp'
-    permanent: true
-    state: enabled
-    
+- name: Allow SSHD to listen on tcp port
+  seport:
+    ports: '{{ sshd_port }}'
+    proto: tcp
+    setype: ssh_port_t
+    state: present
+
+- name: Install FirewallD
+  yum:
+    name: firewalld
+    state: latest
+
 - name: Enable & start FirewallD
   systemd:
     name: firewalld
     state: started
     enabled: yes
+
+- name: Open new SSH port
+  firewalld:
+    port: '{{ sshd_port }}/tcp'
+    permanent: true
+    state: enabled

@@ -1,0 +1,22 @@
+---
+- name: Creates group for user
+  group:
+    name: "{{ item.group }}"
+
+- name: Creates user
+  user:
+    name: "{{ item.name }}"
+    group: "{{ item.group }}"
+
+- name: Add user to wheel group
+  user:
+    name: "{{ item.name }}"
+    append: yes
+    groups: wheel
+  when:
+    - item.is_admin | bool
+
+- name: Add SSH key to authorized keys
+  authorized_key:
+    user: "{{ item.name }}"
+    key: "{{ lookup('file', item.key) }}"

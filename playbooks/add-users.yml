@@ -1,0 +1,7 @@
+---
+- hosts: all
+  tasks:
+    - name: Add users
+      include_role:
+        name: add-user
+      with_items: "{{ users }}"
