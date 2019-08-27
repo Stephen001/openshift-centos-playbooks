@@ -1,5 +1,15 @@
 ---
-- name: Upgrade all packages
+- name: Upgrade all CentOS packages
   yum:
     name: "*"
     state: latest
+  when: ansible_distribution == 'CentOS'
+
+- name: Apply Windows updates
+  win_updates:
+    category_names:
+      - SecurityUpdates
+      - CriticalUpdates
+      - UpdateRollups
+    reboot: yes
+  when: ansible_os_family == 'Windows'
