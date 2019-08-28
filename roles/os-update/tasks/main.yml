@@ -11,5 +11,7 @@
       - SecurityUpdates
       - CriticalUpdates
       - UpdateRollups
+      - Updates
+      - DefinitionUpdates
     reboot: yes
   when: ansible_os_family == 'Windows'
