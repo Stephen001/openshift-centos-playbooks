@@ -1,0 +1,21 @@
+[all:vars]
+ansible_port=22555
+
+[centos:vars]
+ansible_become=yes
+
+[windows:vars]
+ansible_shell_type=powershell
+ansible_connection=ssh
+
+[centos]
+116.203.89.218 # Ansible Bastion
+cloud.vitalbeats.dev
+dev-cluster-master.vitalbeats.dev
+dev-cluster-infra.vitalbeats.dev
+dev-cluster-node-1.vitalbeats.dev
+dev-cluster-node-2.vitalbeats.dev
+dev-cluster-nfs.vitalbeats.dev
+
+[windows]
+dev-cluster-windows.vitalbeats.dev
